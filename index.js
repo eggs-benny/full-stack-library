@@ -1,29 +1,47 @@
 const express = require('express')
-// const bodyParser = require('body-parser')
+
+const { sequelize, Author, Book } = require('./models')
+
 const app = express()
-const port = 3000
+app.use(express.json())
 
+app.post('/authors', async(req,res) => {
+  const {name} = req.body
 
-// app.use(bodyParser.json())
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: true, 
-//   })
-// )
-
-app.get('/', (req, res) => {
-  res.json({ info: 'Node.js, Express, and Postgres API'   
-  })
+  try{
+      const author = await Author.create({ name })
+      return res.json(author)
+  } catch(err){
+    console.log(err)
+    return res.status(500).json(err)
+  }
 })
 
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
+app.post('/books', async(req,res) => {
+  const {name, tag, published, bookId} = req.body
+
+  try{
+      const book = await Book.create({ name, tag, published, bookId })
+      return res.json(book)
+  } catch(err){
+    console.log(err)
+    return res.status(500).json(err)
+  }
 })
 
-// const db = require('./queries')
+app.get('/authors', async (req, res) => {
+  try {
+    const users = await Author.find()
 
-// app.get('/users', db.getUsers)
-// app.get('/users/:id', db.getUserById)
-// app.post('/users', db.createUser)
-// app.put('/users/:id', db.updateUser)
-// app.delete('/users/:id', db.deleteUser)
+    return res.json(authors)
+  } catch(err){
+    console.log(err)
+  return res.status(500).json({ error: 'Something went wrong'})
+  }
+})
+
+app.listen({ port: 5001 }, async () => {
+  console.log('Server up on http://localhost:5001')
+  await sequelize.authenticate()
+  console.log('Database connected!')
+})
