@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(Director, { foreignKey: 'directorId', as: 'director' });
     }
-    toJSON(){
-      return { ...this.get(), id: undefined, directorId: undefined}
+    toJSON() {
+      return { ...this.get(), id: undefined, directorId: undefined };
     }
   }
   Film.init(
@@ -23,15 +23,27 @@ module.exports = (sequelize, DataTypes) => {
       },
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Film must have a title' },
+          notEmpty: { msg: 'Title must not be empty' }
+        }
       },
       rating: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Film must have a rating' },
+          notEmpty: { msg: 'Rating must not be empty' }
+        }
       },
       released: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Film must have a release date' },
+          notEmpty: { msg: 'Release date must not be empty' }
+        }
       }
     },
     {

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Film }) {
       // define association here
-      this.hasMany(Film, {foreignKey: 'directorId'})
+      this.hasMany(Film, {foreignKey: 'directorId', as: 'films'})
     }
 
     toJSON() {
