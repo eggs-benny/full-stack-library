@@ -18,11 +18,30 @@ app.post('/directors', async (req, res) => {
 });
 
 app.post('/films', async (req, res) => {
-  const { name, rating, released, directorId } = req.body;
+  const { directorUuid, title, rating, released } = req.body;
 
   try {
-    const film = await Film.create({ name, rating, released, directorId });
+    const director = await Director.findOne({ where: { uuid: directorUuid } });
+
+    const film = await Film.create({
+      title,
+      rating,
+      released,
+      directorId: director.id
+    });
     return res.json(film);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
+app.get('/films', async (req, res) => {
+  try {
+    const films = await Film.findAll({
+      include: [{ model: Director, as: 'director' }]
+    });
+    return res.json(films);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -40,11 +59,11 @@ app.get('/directors', async (req, res) => {
 });
 
 app.get('/directors/:uuid', async (req, res) => {
-  const uuid = req.params.uuid
+  const uuid = req.params.uuid;
   try {
     const directors = await Director.findOne({
       where: { uuid }
-    })
+    });
     return res.json(directors);
   } catch (err) {
     console.log(err);
