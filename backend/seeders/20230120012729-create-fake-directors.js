@@ -13,21 +13,21 @@ module.exports = {
      * }], {});
      */
      await queryInterface.bulkInsert('directors', [{
-        name: 'John Doe',
-        nationality: 'British',
-        DOB: "2000-01-01 01:00:00+01",
-        uuid: "9a9078e3-5108-426d-884b-dfed3c63d81c",
-        createdAt: "2023-01-01 00:46:20.839+00",
-        updatedAt: "2023-01-01 00:46:21.839+00",
+        name: 'Steven Spielberg',
+        nationality: 'American',
+        DOB: "1948-12-18 00:00:00",
+        uuid: "73059e72-bb04-44e1-91b5-f867974dee74",
+        createdAt: "2023-01-01 00:00:00",
+        updatedAt: "2023-01-01 00:00:01",
    
       }, 
       {
-        name: 'Jane Doe',
-        nationality: 'French',
-        DOB: "2001-01-01 01:00:00+01",
-        uuid: "9a9078e3-5108-426d-884b-dfed3c63d82e",
-        createdAt: "2023-01-02 00:46:20.839+00",
-        updatedAt: "2023-01-02 00:46:21.839+00",
+        name: 'Baz Luhrmann',
+        nationality: 'Australian',
+        DOB: "1962-09-17 01:00:00+01",
+        uuid: "73059e72-bb04-44e1-91b5-f867974dee75",
+        createdAt: "2023-01-02 00:00:00",
+        updatedAt: "2023-01-02 00:00:01",
     
       }], {});
   },
@@ -39,6 +39,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('directors', null, {});
   }
 };
