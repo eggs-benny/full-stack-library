@@ -2,21 +2,21 @@
   "development": {
     "username": "benedictsmith",
     "password": "password",
-    "database": "book_library_development",
+    "database": "film_library_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "benedictsmith",
     "password": "password",
-    "database": "book_library_test",
+    "database": "film_library_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "benedictsmith",
     "password": "password",
-    "database": "book_library",
+    "database": "film_library",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

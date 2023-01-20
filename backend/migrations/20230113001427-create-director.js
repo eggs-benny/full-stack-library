@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('authors', {
+    await queryInterface.createTable('directors', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,10 +11,18 @@ module.exports = {
       },
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false
+      },
+      nationality: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      DOB: {
+        type: DataTypes.DATE,
         allowNull: false
       },
       createdAt: {
@@ -28,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('authors');
+    await queryInterface.dropTable('directors');
   }
 };

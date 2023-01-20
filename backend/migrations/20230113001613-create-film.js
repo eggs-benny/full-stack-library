@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('books', {
+    await queryInterface.createTable('films', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,23 +11,23 @@ module.exports = {
       },
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4
       },
       title: {
-        allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
       },
-      tag: {
-        allowNull: false,
-        type: DataTypes.STRING
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
-      published: {
-        allowNull: false,
-        type: DataTypes.DATE
+      released: {
+        type: DataTypes.DATE,
+        allowNull: false
       },
-      authorId: {
-        allowNull: false,
-        type: DataTypes.INTEGER
+      directorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('books');
+    await queryInterface.dropTable('films');
   }
 };

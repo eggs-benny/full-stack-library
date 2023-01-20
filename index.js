@@ -1,47 +1,59 @@
-const express = require('express')
+const express = require('express');
 
-const { sequelize, Author, Book } = require('./models')
+const { sequelize, Director, Film } = require('./backend/models');
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
-app.post('/authors', async(req,res) => {
-  const {name} = req.body
+app.post('/directors', async (req, res) => {
+  const { name, nationality, DOB } = req.body;
 
-  try{
-      const author = await Author.create({ name })
-      return res.json(author)
-  } catch(err){
-    console.log(err)
-    return res.status(500).json(err)
-  }
-})
-
-app.post('/books', async(req,res) => {
-  const {name, tag, published, bookId} = req.body
-
-  try{
-      const book = await Book.create({ name, tag, published, bookId })
-      return res.json(book)
-  } catch(err){
-    console.log(err)
-    return res.status(500).json(err)
-  }
-})
-
-app.get('/authors', async (req, res) => {
   try {
-    const users = await Author.find()
-
-    return res.json(authors)
-  } catch(err){
-    console.log(err)
-  return res.status(500).json({ error: 'Something went wrong'})
+    const director = await Director.create({ name, nationality, DOB });
+    return res.json(director);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
   }
-})
+});
+
+app.post('/films', async (req, res) => {
+  const { name, rating, released, directorId } = req.body;
+
+  try {
+    const film = await Film.create({ name, rating, released, directorId });
+    return res.json(film);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+});
+
+app.get('/directors', async (req, res) => {
+  try {
+    const directors = await Director.findAll();
+    return res.json(directors);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
+app.get('/directors/:uuid', async (req, res) => {
+  const uuid = req.params.uuid
+  try {
+    const directors = await Director.findOne({
+      where: { uuid }
+    })
+    return res.json(directors);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+});
 
 app.listen({ port: 5001 }, async () => {
-  console.log('Server up on http://localhost:5001')
-  await sequelize.authenticate()
-  console.log('Database connected!')
-})
+  console.log('Server up on http://localhost:5001');
+  await sequelize.authenticate();
+  console.log('Database connected!');
+});
