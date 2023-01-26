@@ -24,15 +24,27 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Director must have a name'},
+          notEmpty: { msg: 'Name must not be empty'}
+        }
       },
       nationality: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Director must have a nationality'},
+          notEmpty: { msg: 'Nationality must not be empty'}
+        }
       },
       DOB: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Director must have a DOB'},
+          notEmpty: { msg: 'DOB must not be empty'}
+        }
       }
     },
     {

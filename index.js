@@ -8,7 +8,7 @@ app.use(express.json());
 
 //create director
 app.post('/directors', async (req, res) => {
-  const { title, nationality, DOB } = req.body;
+  const { name, nationality, DOB } = req.body;
 
   try {
     const director = await Director.create({ name, nationality, DOB });
@@ -78,6 +78,22 @@ app.get('/directors/:uuid', async (req, res) => {
   }
 });
 
+
+//find a film by ID
+app.get('/films/:uuid', async (req, res) => {
+  const uuid = req.params.uuid;
+  try {
+    const films = await Film.findOne({
+      where: { uuid },
+      include: 'director'
+    });
+    return res.json(films);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
 //delete a director
 app.delete('/directors/:uuid', async (req, res) => {
   const uuid = req.params.uuid;
@@ -112,15 +128,31 @@ app.put('/directors/:uuid', async (req, res) => {
 //amend a film
 app.put('/films/:uuid', async (req, res) => {
   const uuid = req.params.uuid;
-  const { title, rating, released, directorId } = req.body;
+  const { title, rating, released, directorUuid } = req.body;
   try {
+    // const director = await Director.findOne({ where: { uuid: directorUuid } });
+
     const film = await Film.findOne({ where: { uuid } });
     film.title = title
     film.rating = rating
     film.released = released
-    film.directorId = directorId
+    film.directorId = directorUuid
     await film.save()
 
+      //   const director = await Director.findOne({ where: { uuid: directorUuid } });
+
+  //   const film = await Film.create({
+  //     title,
+  //     rating,
+  //     released,
+  //     directorId: director.id
+  //   });
+  //   return res.json(film);
+  // } catch (err) {
+  //   console.log(err);
+  //   return res.status(500).json(err);
+  // }
+    
     return res.json(film);
   } catch (err) {
     console.log(err);
