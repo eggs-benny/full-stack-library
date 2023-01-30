@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { sequelize, Director, Film } = require('./backend/models');
+const { sequelize, Director, Film } = require('./models');
 // const director = require('./backend/models/director');
 
 const app = express();
