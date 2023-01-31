@@ -1,8 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Homepage from './Homepage'; // may need to update to reflect AddFilm
+import Homepage from './Homepage';
 import { Container } from 'react-bootstrap';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AddFilm } from './AddFilm';
+
+export type Film = {
+  id: string
+} & FilmData
+
+export type FilmData = {
+  title: string,
+  director: string,
+  releaseDate: string,
+  rating: string
+}
 
 function App() {
   return (
